@@ -1,124 +1,307 @@
 # 🔬 Research Insights Platform
 
-A Google Colab notebook that goes beyond simple semantic search — it analyzes machine learning research papers and generates useful insights: summaries, keywords, named entities, cross-topic comparisons, and dataset-level statistics.
+An Agentic AI-powered research assistant that enables semantic exploration of research papers using Sentence Transformers, FAISS, Hugging Face models, KeyBERT, spaCy, LangChain, and Groq LLMs.
 
-Built as a portfolio project to demonstrate practical NLP engineering: embeddings, vector search, summarization, keyword extraction, and NER combined into one coherent analysis pipeline.
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|---|---|
-| **Semantic Search** | Find papers by meaning, not just keywords, using sentence embeddings + FAISS |
-| **Summarization** | Auto-generate short summaries of retrieved abstracts |
-| **Keyword Extraction** | Pull the top 5 keywords/keyphrases from each paper using KeyBERT |
-| **Named Entity Recognition** | Detect Models, Organizations, Technologies, Datasets, and Researchers |
-| **Research Insights** | Aggregate most common keywords/entities across a set of search results |
-| **Topic Comparison** | Compare two research topics side-by-side (keywords, entities, similarity) |
-| **Research Statistics** | Summary stats — avg abstract length, avg similarity, most frequent keyword/entity |
+The system goes beyond traditional keyword search by understanding the meaning of research papers, generating summaries, extracting important keywords and entities, comparing research topics, producing research insights, and answering user queries through an intelligent LangChain Agent.
 
 ---
 
-## 🗂 Dataset
+## Features
 
-[`CShorten/ML-ArXiv-Papers`](https://huggingface.co/datasets/CShorten/ML-ArXiv-Papers) from HuggingFace — machine learning papers with `title` and `abstract` fields. The notebook uses a subset of ~15,000 papers for fast execution in Colab.
-
----
-
-## 🧠 Models & Libraries
-
-- **Embeddings:** `sentence-transformers` — `all-MiniLM-L6-v2`
-- **Vector Search:** `faiss-cpu` (`IndexFlatIP` / cosine similarity on normalized vectors)
-- **Summarization:** `transformers` — `sshleifer/distilbart-cnn-12-6`
-- **Keyword Extraction:** `KeyBERT`
-- **NER:** `spaCy` — `en_core_web_sm`
-- **Data handling:** `pandas`, `numpy`, `datasets`
+### Semantic Search
+- Generates dense embeddings using Sentence Transformers.
+- Stores embeddings using FAISS.
+- Retrieves the most semantically similar research papers.
+- Understands meaning instead of relying on keyword matching.
 
 ---
 
-## 🚀 How to Run
-
-1. Open the notebook in [Google Colab](https://colab.research.google.com/).
-2. Run all cells top to bottom (**Runtime → Run all**). A GPU runtime is recommended but not required.
-3. The notebook will:
-   - Install dependencies
-   - Load and clean the dataset
-   - Generate embeddings and build the FAISS index
-   - Load the summarization, keyword extraction, and NER models
-4. Try it yourself by editing the query variables, e.g.:
-   ```python
-   user_query = "transformer models for text classification"
-   enriched_results = display_enriched_results(user_query, top_k=5)
-   ```
-
-No API keys, no external services, and no UI framework required — everything runs inside the notebook.
+### Research Paper Summarization
+- Uses Hugging Face Transformer models.
+- Produces concise summaries of selected research papers.
+- Makes lengthy papers easier to understand.
 
 ---
 
-## 📓 Notebook Structure
-
-**Part 1 — Backend Foundation**
-1. Install libraries
-2. Load dataset & convert to DataFrame
-3. Clean text and build `paper_text`
-4. Generate embeddings with SentenceTransformer
-5. Build FAISS index
-6. `semantic_search(query, top_k)` — core search function
-
-**Part 2 — Research Insights**
-7. `summarize_paper(text)` — abstractive summarization
-8. `extract_keywords(text)` — top-5 keyword extraction
-9. `extract_entities(text)` — NER across 5 entity types
-10. `display_enriched_results(query, top_k)` — search + summary + keywords + entities per paper
-11. `generate_insights(results)` — most common keywords/entities/technologies/organizations/datasets
-12. `compare_topics(topic1, topic2)` — side-by-side topic comparison
-13. `research_statistics(results)` — aggregate stats over a result set
+### Keyword Extraction
+- Uses KeyBERT.
+- Identifies the most important research keywords.
+- Helps understand major themes within papers.
 
 ---
 
-## 📌 Example Output
+### Named Entity Recognition (NER)
+- Uses spaCy.
+- Extracts:
+  - Organizations
+  - People
+  - Locations
+  - Technologies
+  - Research-related entities
+
+---
+
+### Research Insights
+Generates insights from retrieved papers by combining:
+- Keywords
+- Named Entities
+- Research Trends
+
+This provides a quick overview of common topics and recurring concepts.
+
+---
+
+### Topic Comparison
+Allows comparison between two research areas.
+
+Example:
+
+- Transformers vs Diffusion Models
+- Reinforcement Learning vs Computer Vision
+
+The system retrieves relevant papers for each topic and compares them.
+
+---
+
+### Research Statistics
+Provides useful statistics including:
+- Number of papers
+- Embedding information
+- Search-related statistics
+- Dataset overview
+
+---
+
+### Lightweight Python Agent
+A lightweight rule-based research agent is included as a fallback.
+
+It can automatically choose which existing function to execute based on the user's request.
+
+---
+
+### LangChain Agent
+The project extends the lightweight agent by introducing an Agentic AI architecture using LangChain.
+
+The LangChain Agent:
+- Uses ChatGroq as the LLM.
+- Wraps existing project functions as LangChain Tools.
+- Automatically decides which tools to invoke.
+- Reuses the existing project logic without duplicating code.
+
+---
+
+## Technologies Used
+
+- Python
+- Google Colab
+- Pandas
+- NumPy
+- Sentence Transformers
+- FAISS
+- Hugging Face Transformers
+- KeyBERT
+- spaCy
+- LangChain
+- LangChain Core
+- LangChain Groq
+- Groq API
+
+---
+
+## Project Workflow
 
 ```
-Search Query: "transformer models for text classification"
-
-Result 1
-Title: ...
-Similarity Score: 0.7421
-Abstract: ...
-
-Summary: ...
-Top Keywords: transformer, text classification, attention, fine-tuning, bert
-Entities:
-  Models: bert, transformer
-  Technologies: natural language processing
-  Datasets: glue
+Research Papers
+        │
+        ▼
+Text Cleaning
+        │
+        ▼
+Sentence Transformer Embeddings
+        │
+        ▼
+FAISS Vector Database
+        │
+        ▼
+Semantic Search
+        │
+        ├───────────────┐
+        ▼               ▼
+ Summarization     Keyword Extraction
+        │               │
+        ▼               ▼
+ Named Entity Recognition
+        │
+        ▼
+ Research Insights
+        │
+        ▼
+ LangChain Tools
+        │
+        ▼
+ ChatGroq Agent
+        │
+        ▼
+ Final Response
 ```
 
 ---
 
-## 🔧 Reusable Core Functions
+## Agent Tools
+
+The LangChain Agent exposes the following tools:
+
+- Semantic Search Tool
+- Paper Summarization Tool
+- Keyword Extraction Tool
+- Named Entity Recognition Tool
+- Research Insights Tool
+- Topic Comparison Tool
+- Research Statistics Tool
+
+Each tool wraps an existing function from the notebook without modifying its implementation.
+
+---
+
+## Example Queries
+
+### Semantic Search
+
+```
+Find papers on Reinforcement Learning.
+```
+
+---
+
+### Paper Summarization
+
+```
+Summarize papers about Vision Transformers.
+```
+
+---
+
+### Topic Comparison
+
+```
+Compare Transformers and Diffusion Models.
+```
+
+---
+
+### Named Entity Analysis
+
+```
+What are the common organizations mentioned?
+```
+
+---
+
+### Research Insights
+
+```
+What are the latest trends in Generative AI?
+```
+
+---
+
+### Research Statistics
+
+```
+Show statistics.
+```
+
+---
+
+## Project Structure
+
+```
+Notebook
+│
+├── Data Loading
+├── Text Preprocessing
+├── Sentence Embeddings
+├── FAISS Index
+├── Semantic Search
+├── Hugging Face Summarization
+├── KeyBERT Keyword Extraction
+├── spaCy Named Entity Recognition
+├── Research Insights
+├── Topic Comparison
+├── Research Statistics
+├── Lightweight Python Agent
+├── LangChain Tool Wrappers
+├── ChatGroq Agent
+└── ask_agent()
+```
+
+---
+
+## Setup
+
+Install the required libraries:
+
+```bash
+pip install sentence-transformers
+pip install faiss-cpu
+pip install transformers
+pip install keybert
+pip install spacy
+pip install langchain
+pip install langchain-core
+pip install langchain-groq
+```
+
+Download the spaCy model:
+
+```bash
+python -m spacy download en_core_web_sm
+```
+
+Set your Groq API Key:
 
 ```python
-semantic_search(query, top_k=5)
-summarize_paper(text)
-extract_keywords(text, top_n=5)
-extract_entities(text)
-generate_insights(results)
-compare_topics(topic1, topic2, top_k=5)
-research_statistics(results)
+import os
+
+os.environ["GROQ_API_KEY"] = "YOUR_API_KEY"
+```
+
+or use Google Colab Secrets:
+
+```python
+from google.colab import userdata
 ```
 
 ---
 
-## ⚠️ Notes & Limitations
+## Running the Agent
 
-- Entity categorization for Models/Technologies/Datasets uses a curated term list combined with spaCy's `ORG`/`PERSON` detection — it's a lightweight heuristic, not a trained domain-specific NER model.
-- Embeddings and the FAISS index are held in memory for the session; re-run the notebook (or persist to disk) to reuse them in a new session.
-- Built and tested for a single-notebook Colab workflow — no backend server, API, or UI.
+Use the helper function:
+
+```python
+ask_agent("Find papers on Reinforcement Learning.")
+```
+
+The LangChain Agent automatically selects the appropriate tools required to answer the query.
 
 ---
 
-## 📄 License
+## Future Improvements
 
-This project is for educational/portfolio purposes. Dataset and model licenses belong to their respective owners (HuggingFace, arXiv, Anthropic/Facebook/spaCy model authors, etc.).
+- Multi-document question answering
+- Research paper recommendations
+- Citation analysis
+- PDF upload support
+- Retrieval-Augmented Generation (RAG)
+- Streamlit/Web application
+- Multi-agent collaboration
+
+---
+
+## Author
+
+**Harshit Rao**
+
+B.Tech Computer Science Engineering
+
+AI • Machine Learning • Agentic AI • NLP
