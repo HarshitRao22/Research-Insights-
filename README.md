@@ -1,6 +1,6 @@
 # 🔬 Research Insights Platform
 
-![Agentic AI Research Insights System Cover](cover.png)
+
 
 An Agentic AI-powered research assistant that enables semantic exploration of research papers using Sentence Transformers, FAISS, Hugging Face models, KeyBERT, spaCy, LangChain, and Groq LLMs.
 
