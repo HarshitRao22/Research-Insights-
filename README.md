@@ -11,7 +11,7 @@ The system goes beyond traditional keyword search by understanding the meaning o
 
 ---
 
-## Features
+## Features~
 
 ### Semantic Search
 - Generates dense embeddings using Sentence Transformers.
