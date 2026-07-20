@@ -21,7 +21,7 @@ The system goes beyond traditional keyword search by understanding the meaning o
 
 ---
 
-### Research Paper Summarization
+### Research Paper Summarization~
 - Uses Hugging Face Transformer models.
 - Produces concise summaries of selected research papers.
 - Makes lengthy papers easier to understand.
