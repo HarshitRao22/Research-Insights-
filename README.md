@@ -28,7 +28,7 @@ The system goes beyond traditional keyword search by understanding the meaning o
 
 ---
 
-### Keyword Extraction
+### Keyword Extraction~
 - Uses KeyBERT.
 - Identifies the most important research keywords.
 - Helps understand major themes within papers.
